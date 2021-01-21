@@ -8,8 +8,7 @@ eventsRouter.get("/", async (req, res) => {
   try {
     const events = await Event.query()
     return res.status(200).json({ events })
-  }
-  catch(err) {
+  } catch (err) {
     return res.status(500).json({ errors: err })
   }
 })
@@ -19,9 +18,9 @@ eventsRouter.get("/:id", async (req, res) => {
 
   try {
     const event = await Event.query().findById(id)
+    event.guests = await event.$relatedQuery("guests")
     return res.status(200).json({ event })
-  }
-  catch(err) {
+  } catch (err) {
     return res.status(500).json({ errors: err })
   }
 })
