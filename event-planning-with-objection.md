@@ -1,3 +1,5 @@
+Oh my goodness, a social calendar is so difficult to track these days. Help us organize our events and attendees so that our users can have a fantabulous social life.
+
 ### Getting Started
 
 ```
@@ -16,6 +18,12 @@ To get started, work as a group to review the provided code. Specifically, your 
 
 Take note of what components exist, where they are rendered (what paths), what their responsibilities are, and where they are making `fetch` calls to.
 
+The entities we will be working with at first are a `Category` and an `Event`. A category such as "outdoors" could have an event such as "picnic brunch".
+
+We will then attempt to relate events and guests! In our app, we want our guests to attend whatever events they want, multiple if they choose! And of course, multiple guests can be invited to an event.
+
+Given this criteria, take a moment to consider the ER diagram that we may need for this app.
+
 #### Step 1
 
 We need to build an application to keep track of all of the events we want to plan! Let's start by adding a "categories" table into our database. Each category should have a required string of "name".
@@ -26,7 +34,7 @@ Your `Category` model and "/api/v1/categories" API endpoint have been provided t
 
 Now that we have our categories, we want to add events under each category.
 
-Create a mimgration for an "events" table. Events should have a required string of "name" and an optional string of "description". **Consider what else you need to add in order to associate events with a particular category!**
+Create a migration for an "events" table. Events should have a required string of "name" and an optional string of "description". **Consider what else you need to add in order to associate events with a particular category!**
 
 Your `Event` model has been provided to you, so once your migration has been created and migrated, you can run `yarn run db:seed` from your `server` directory to seed some categories and events into your database.
 
@@ -46,7 +54,7 @@ Now that we can see the related events on our page, we want to be able to add ne
 
 Our first step will be adding the nested router, so that we can create a POST endpoint to add new events under a particular category. This endpoint will have a path of "/api/v1/categories/:categoryId/events".
 
-You have been provided with a `categoryEventsRouter` file. Create your router within this file, and  namespace that router within your `categoriesRouter` in order to nest the url as indicated. Be sure to add the `mergeParams: true` option when creating your `categoryEventsRouter`!
+You have been provided with a `categoryEventsRouter` file. Create your router within this file, and namespace that router within your `categoriesRouter` in order to nest the url as indicated. Be sure to add the `mergeParams: true` option when creating your `categoryEventsRouter`!
 
 For now, add the empty POST endpoint without any code inside.
 
@@ -69,6 +77,8 @@ Add a migration to create a "guests" table. Guests should have required strings 
 Also add a migration for an "invitations" join table. This table should have any columns required in order to join events and guests.
 
 #### Step 7
+
+_Note: should your group choose, you may decide to split this step up. One individual can setup the ManyToMany relations, while the other sets up any OneToMany relations_
 
 Now that our tables have been set up, we can add our associations for this new relationship. You have been provided with a `Guest` and `Invitation` model. Add any necessary relationMappings to your `Event`, `Guest`, and `Invitation` models to complete the join relationships!
 
